@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const shopApi = require("./api/shopApi");
 const customerApi = require("./api/customerApi");
 const billApi = require("./api/billApi");
+const requestApi = require("./api/requestApi");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(shopApi);
 app.use(billApi);
 app.use(customerApi);
+app.use(requestApi);
 
 const mangoUri =
   "mongodb+srv://admin:passwordpassword@cluster0.hqgew.mongodb.net/<dbname>?retryWrites=true&w=majority";
