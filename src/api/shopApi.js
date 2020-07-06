@@ -14,6 +14,7 @@ router.post("/shop/register", async (req, res) => {
     isOpen,
     isDelated,
     closeMsg,
+    baseFields,
   } = req.body;
 
   const shop = new Shop({
@@ -26,13 +27,14 @@ router.post("/shop/register", async (req, res) => {
     isOpen,
     isDelated,
     closeMsg,
+    baseFields,
   });
   try {
-    const a = await shop.save();
-    console.log(a);
-    res.status(200).send("dhfgdhgf");
+    await shop.save();
+    //console.log(shop._id);
+    res.status(200).send(shop._id);
   } catch (err) {
-    return res.status(422).send(err.message);
+    res.status(422).send(err.message);
   }
 });
 

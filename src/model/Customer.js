@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const baseSchema = require("./Base");
 
 const customerSchema = new mongoose.Schema({
   shopId: {
@@ -23,6 +24,7 @@ const customerSchema = new mongoose.Schema({
     type: Boolean,
     require: true,
   },
+  baseFields: baseSchema,
 });
 
 mongoose.model("Customer", customerSchema);

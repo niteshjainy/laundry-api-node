@@ -4,11 +4,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const shopApi = require("./api/shopApi");
+const customerApi = require("./api/customerApi");
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(shopApi);
+app.use(customerApi);
 
 const mangoUri =
   "mongodb+srv://admin:passwordpassword@cluster0.hqgew.mongodb.net/<dbname>?retryWrites=true&w=majority";

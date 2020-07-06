@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const baseSchema = require("./Base");
 const shopSchema = new mongoose.Schema({
   shopName: {
     type: String,
@@ -39,6 +39,8 @@ const shopSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+
+  baseFields: baseSchema,
 });
 
 mongoose.model("Shop", shopSchema);
