@@ -3,6 +3,15 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const Shop = mongoose.model("Shop");
 
+router.get("/shop/list", async (req, res) => {
+  try {
+    const shop = await Shop.find();
+    res.status(200).send(shop);
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 router.post("/shop/register", async (req, res) => {
   const {
     shopName,
@@ -31,7 +40,7 @@ router.post("/shop/register", async (req, res) => {
   });
   try {
     await shop.save();
-    //console.log(shop._id);
+    //req.shop.shopId = shop._id;
     res.status(200).send(shop._id);
   } catch (err) {
     res.status(422).send(err.message);
