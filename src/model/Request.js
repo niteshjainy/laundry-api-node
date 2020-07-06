@@ -7,7 +7,7 @@ const requestSchema = new mongoose.Schema({
     ref: "Shop",
   },
   customerId: {
-    type: mongoose.mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Customer",
   },
   numberOfPiece: {
