@@ -5,13 +5,20 @@ const Shop = mongoose.model("Shop");
 
 router.get("/shop/list", async (req, res) => {
   try {
-    const shop = await Shop.find();
+    const shops = await Shop.find();
+    res.status(200).send(shops);
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+router.get("/shop/:shopId", async (req, res) => {
+  try {
+    const shop = await Shop.findById(req.params.shopId);
     res.status(200).send(shop);
   } catch (err) {
     res.status(422).send(err.message);
   }
 });
-
 router.post("/shop/register", async (req, res) => {
   const {
     shopName,

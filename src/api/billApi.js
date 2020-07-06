@@ -5,7 +5,16 @@ const Bill = mongoose.model("Bill");
 
 router.get("/bill/list", async (req, res) => {
   try {
-    const bill = await Bill.find();
+    const bills = await Bill.find();
+    res.status(200).send(bills);
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
+router.get("/bill/:billId", async (req, res) => {
+  try {
+    const bill = await Bill.findById(req.params.billId);
     res.status(200).send(bill);
   } catch (err) {
     res.status(422).send(err.message);
