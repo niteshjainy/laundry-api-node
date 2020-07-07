@@ -13,17 +13,21 @@ const billSchema = new mongoose.Schema({
   description: {
     type: String,
   },
-  deliverCharge: {
+  deliveryCharge: {
     type: Number,
+    required: true,
   },
   pickupCharge: {
     type: Number,
+    required: true,
   },
   urgentCharge: {
     type: Number,
+    required: true,
   },
   isDeleted: {
     type: Boolean,
+    required: true,
   },
   baseFields: baseSchema,
 });

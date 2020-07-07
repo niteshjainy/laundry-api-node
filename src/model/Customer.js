@@ -1,25 +1,71 @@
 const mongoose = require("mongoose");
 const baseSchema = require("./Base");
+const bcrypt = require("bcrypt");
 
 const customerSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
   },
   mobile: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   isDeleted: {
     type: Boolean,
-    require: true,
+    required: true,
   },
   baseFields: baseSchema,
 });
+customerSchema.methods.toJSON = function () {
+  var obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
+customerSchema.pre("save", function (next) {
+  const customer = this;
+  if (!customer.isModified("password")) {
+    return next();
+  }
+
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) {
+      return next(err);
+    }
+
+    bcrypt.hash(customer.password, salt, (err, hash) => {
+      if (err) {
+        return next(err);
+      }
+      customer.password = hash;
+      next();
+    });
+  });
+});
+
+customerSchema.methods.comparePassword = function (candidatePassword) {
+  const customer = this;
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(candidatePassword, customer.password, (err, isMatch) => {
+      if (err) {
+        return reject(err);
+      }
+      if (!isMatch) {
+        return reject(false);
+      }
+      resolve(true);
+    });
+  });
+};
 
 mongoose.model("Customer", customerSchema);

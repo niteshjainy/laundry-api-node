@@ -20,7 +20,7 @@ router.get("/request/:requestId", async (req, res) => {
   }
 });
 router.post("/request/register", async (req, res) => {
-  const {
+  const newRequest = ({
     shopId,
     customerId,
     numberOfPiece,
@@ -31,20 +31,9 @@ router.post("/request/register", async (req, res) => {
     isDeleted,
     requestType,
     baseFields,
-  } = req.body;
+  } = req.body);
 
-  const request = new Request({
-    shopId,
-    customerId,
-    numberOfPiece,
-    description,
-    isUrgent,
-    status,
-    isDeliveryNeeded,
-    isDeleted,
-    requestType,
-    baseFields,
-  });
+  const request = new Request(newRequest);
   try {
     await request.save();
     res.status(200).send(request);

@@ -19,15 +19,19 @@ const requestSchema = new mongoose.Schema({
   },
   isUrgent: {
     type: Boolean,
+    required: true,
   },
   status: {
     type: String,
+    required: true,
   },
   isDeliveryNeeded: {
     type: Boolean,
+    required: true,
   },
   isDeleted: {
     type: Boolean,
+    required: true,
   },
   requestType: {
     type: String,

@@ -22,27 +22,18 @@ router.get("/bill/:billId", async (req, res) => {
 });
 
 router.post("/bill/generate", async (req, res) => {
-  const {
+  const newBill = ({
     requestId,
     amount,
     description,
-    deliverCharge,
+    deliveryCharge,
     pickupCharge,
     urgentCharge,
     isDeleted,
     baseFields,
-  } = req.body;
+  } = req.body);
 
-  const bill = new Bill({
-    requestId,
-    amount,
-    description,
-    deliverCharge,
-    pickupCharge,
-    urgentCharge,
-    isDeleted,
-    baseFields,
-  });
+  const bill = new Bill(newBill);
   try {
     await bill.save();
     console.log(bill._id);

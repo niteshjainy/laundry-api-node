@@ -10,6 +10,8 @@ const shopApi = require("./api/shopApi");
 const customerApi = require("./api/customerApi");
 const billApi = require("./api/billApi");
 const requestApi = require("./api/requestApi");
+const customerAuth = require("./middleware/customerAuth");
+const shopAuth = require("./middleware/shopAuth");
 
 const app = express();
 
@@ -36,9 +38,7 @@ mongoose.connection.on("error", (err) => {
   console.error("Error connecting to mango", err);
 });
 
-app.get("/", (req, res) => {
-  res.send("called successfully");
-});
+app.get("/", (req, res) => {});
 
 app.listen(4000, () => {
   console.log("listing port 4000");

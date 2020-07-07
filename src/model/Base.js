@@ -8,10 +8,10 @@ const baseSchema = new mongoose.Schema({
     type: String,
   },
   createdOn: {
-    type: String,
+    type: Number,
   },
   modifiedOn: {
-    type: String,
+    type: Number,
   },
 });
 
