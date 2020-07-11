@@ -38,7 +38,9 @@ mongoose.connection.on("error", (err) => {
   console.error("Error connecting to mango", err);
 });
 
-app.get("/", (req, res) => {});
+app.get("/", (req, res) => {
+  res.send("Apllication Is Working...");
+});
 
 app.listen(4000, () => {
   console.log("listing port 4000");
