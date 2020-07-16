@@ -1,48 +1,48 @@
 const mongoose = require("mongoose");
-const baseSchema = require("./Base");
 const bcrypt = require("bcrypt");
 
-const shopSchema = new mongoose.Schema({
-  shopName: {
-    type: String,
-    required: true,
+const shopSchema = new mongoose.Schema(
+  {
+    shopName: {
+      type: String,
+      required: true,
+    },
+    mobile: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    ownerName: {
+      type: String,
+      required: true,
+    },
+    openTime: {
+      type: String,
+    },
+    closeTime: {
+      type: String,
+    },
+    isOpen: {
+      type: Boolean,
+    },
+    closeMsg: {
+      type: String,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  mobile: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  ownerName: {
-    type: String,
-    required: true,
-  },
-  openTime: {
-    type: String,
-  },
-  closeTime: {
-    type: String,
-  },
-  isOpen: {
-    type: Boolean,
-  },
-  isDeleted: {
-    type: Boolean,
-    required: true,
-  },
-  closeMsg: {
-    type: String,
-  },
-
-  baseFields: baseSchema,
-});
+  { timestamps: true }
+);
 
 shopSchema.methods.toJSON = function () {
   var obj = this.toObject();

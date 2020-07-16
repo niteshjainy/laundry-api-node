@@ -32,14 +32,17 @@ router.post("/shop/register", async (req, res) => {
     isOpen,
     isDelated,
     closeMsg,
-    baseFields,
   } = req.body);
 
   const shop = new Shop(newShop);
   try {
     await shop.save();
-    const token = jwt.sign({ shopId: shop._id }, "jainy");
-    res.status(200).send(token);
+    const token = jwt.sign({ shopId: shop._id }, "5f034ae6ccd75c0f78383786");
+    const data = {
+      token: token,
+      shopId: shop._id,
+    };
+    res.status(200).send(data);
   } catch (err) {
     res.status(422).send(err.message);
   }
@@ -59,8 +62,12 @@ router.post("/shop/login", async (req, res) => {
   }
   try {
     await shop.comparePassword(password);
-    const token = jwt.sign({ shopId: shop._id }, "jainy");
-    res.send({ token });
+    const token = jwt.sign({ shopId: shop._id }, "5f034ae6ccd75c0f78383786");
+    const data = {
+      token: token,
+      shopId: shop._id,
+    };
+    res.send(data);
   } catch (err) {
     return res.status(422).send({ error: "Invalid password" });
   }

@@ -30,7 +30,6 @@ router.post("/request/register", async (req, res) => {
     isDeliveryNeeded,
     isDeleted,
     requestType,
-    baseFields,
   } = req.body);
 
   const request = new Request(newRequest);

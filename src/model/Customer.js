@@ -1,31 +1,36 @@
 const mongoose = require("mongoose");
-const baseSchema = require("./Base");
 const bcrypt = require("bcrypt");
 
-const customerSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const customerSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    mobile: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    deliveryAddress: {
+      type: String,
+      required: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  mobile: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  isDeleted: {
-    type: Boolean,
-    required: true,
-  },
-  baseFields: baseSchema,
-});
+  { timestamps: true }
+);
 customerSchema.methods.toJSON = function () {
   var obj = this.toObject();
   delete obj.password;

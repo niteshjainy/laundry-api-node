@@ -6,10 +6,12 @@ require("./model/Request");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+
 const shopApi = require("./api/shopApi");
 const customerApi = require("./api/customerApi");
 const billApi = require("./api/billApi");
 const requestApi = require("./api/requestApi");
+
 const customerAuth = require("./middleware/customerAuth");
 const shopAuth = require("./middleware/shopAuth");
 

@@ -30,7 +30,6 @@ router.post("/bill/generate", async (req, res) => {
     pickupCharge,
     urgentCharge,
     isDeleted,
-    baseFields,
   } = req.body);
 
   const bill = new Bill(newBill);

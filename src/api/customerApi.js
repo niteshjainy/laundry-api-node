@@ -23,19 +23,20 @@ router.get("/customer/:customerId", async (req, res) => {
 });
 
 router.post("/customer/register", async (req, res) => {
-  const newCustomer = ({
-    shopId,
-    name,
-    mobile,
-    address,
-    isDeleted,
-    baseFields,
-  } = req.body);
+  //const newCustomer = ({name, mobile, address, isDeleted } = req.body);
+  const newCustomer = req.body;
   const customer = new Customer(newCustomer);
   try {
     await customer.save();
-    const token = jwt.sign({ customerId: customer._id }, "jainy");
-    res.send({ token });
+    const token = jwt.sign(
+      { customerId: customer._id },
+      "5f034ae6ccd75c0f78383786"
+    );
+    const data = {
+      token: token,
+      customerId: customer._id,
+    };
+    res.send(data);
   } catch (err) {
     res.status(422).send(err.message);
   }
@@ -55,8 +56,15 @@ router.post("/customer/login", async (req, res) => {
   }
   try {
     await customer.comparePassword(password);
-    const token = jwt.sign({ customerId: customer._id }, "jainy");
-    res.send({ token });
+    const token = jwt.sign(
+      { customerId: customer._id },
+      "5f034ae6ccd75c0f78383786"
+    );
+    const data = {
+      token: token,
+      customerId: customer._id,
+    };
+    res.send(data);
   } catch (err) {
     return res.status(422).send({ error: "Invalid password" });
   }
