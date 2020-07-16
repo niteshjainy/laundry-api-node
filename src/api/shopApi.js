@@ -14,25 +14,39 @@ router.get("/shop/list", async (req, res) => {
 });
 router.get("/shop/:shopId", async (req, res) => {
   try {
+    if (!req.params.shopId) {
+      return res
+        .status(422)
+        .send({ error: "Something went wrong!! Please try again" });
+    }
     const shop = await Shop.findById(req.params.shopId);
-    res.status(200).send(shop);
+    if (shop) res.status(200).send(shop);
+    else res.status(422).send("no data found");
   } catch (err) {
     res.status(422).send(err.message);
   }
 });
+
+router.patch("/shop/update/:shopId", async (req, res) => {
+  const data = req.body;
+
+  if (!data) {
+    return res
+      .status(422)
+      .send({ error: "Something went wrong!! Please try again" });
+  }
+  try {
+    await Shop.updateOne({ _id: req.params.shopId }, data, {
+      timestamps: true,
+    });
+    res.status(200).send("updated successfully");
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 router.post("/shop/register", async (req, res) => {
-  const newShop = ({
-    shopName,
-    mobile,
-    password,
-    address,
-    ownerName,
-    openTime,
-    closeTime,
-    isOpen,
-    isDelated,
-    closeMsg,
-  } = req.body);
+  const newShop = req.body;
 
   const shop = new Shop(newShop);
   try {

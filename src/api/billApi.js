@@ -12,6 +12,24 @@ router.get("/bill/list", async (req, res) => {
   }
 });
 
+router.patch("/bill/update/:billId", async (req, res) => {
+  const data = req.body;
+
+  if (!data) {
+    return res
+      .status(422)
+      .send({ error: "Something went wrong!! Please try again" });
+  }
+  try {
+    await Bill.updateOne({ _id: req.params.billId }, data, {
+      timestamps: true,
+    });
+    res.status(200).send("updated successfully");
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
 router.get("/bill/:billId", async (req, res) => {
   try {
     const bill = await Bill.findById(req.params.billId);
@@ -22,15 +40,7 @@ router.get("/bill/:billId", async (req, res) => {
 });
 
 router.post("/bill/generate", async (req, res) => {
-  const newBill = ({
-    requestId,
-    amount,
-    description,
-    deliveryCharge,
-    pickupCharge,
-    urgentCharge,
-    isDeleted,
-  } = req.body);
+  const newBill = req.body;
 
   const bill = new Bill(newBill);
   try {

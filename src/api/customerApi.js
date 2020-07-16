@@ -23,8 +23,8 @@ router.get("/customer/:customerId", async (req, res) => {
 });
 
 router.post("/customer/register", async (req, res) => {
-  //const newCustomer = ({name, mobile, address, isDeleted } = req.body);
   const newCustomer = req.body;
+  newCustomer.deliveryAddress = req.body.address;
   const customer = new Customer(newCustomer);
   try {
     await customer.save();
@@ -37,6 +37,24 @@ router.post("/customer/register", async (req, res) => {
       customerId: customer._id,
     };
     res.send(data);
+  } catch (err) {
+    res.status(422).send(err.message);
+  }
+});
+
+router.patch("/customer/update/:customerId", async (req, res) => {
+  const data = req.body;
+
+  if (!data) {
+    return res
+      .status(422)
+      .send({ error: "Something went wrong!! Please try again" });
+  }
+  try {
+    await Customer.updateOne({ _id: req.params.customerId }, data, {
+      timestamps: true,
+    });
+    res.status(200).send("updated successfully");
   } catch (err) {
     res.status(422).send(err.message);
   }

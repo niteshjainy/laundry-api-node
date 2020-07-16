@@ -10,6 +10,10 @@ const requestSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
     },
+    address: {
+      type: String,
+      required: true,
+    },
     numberOfPiece: {
       type: Number,
       required: true,
